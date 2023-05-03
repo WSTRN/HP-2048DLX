@@ -10,14 +10,16 @@
 
 gglsurface s;
 gglsurface rs;
-uint8_t surfacebuff[128 * 32 / 2];
+// uint8_t surfacebuff[128 * 32 / 2];
+int vbuff;
 void app_2048_main();
 int main()
 {
     ggl_initscr(&rs);
     lcd_setmode(MODE_16GRAY, rs.addr);
-    s.addr = (int *)surfacebuff;
-    s.width = 128*64;
+    vbuff=(int)sys_phys_malloc( 128*32 + 16);
+    s.addr = (int *)((sys_map_v2p(vbuff)+15)&0xfffffff0);
+    s.width = 128;
     s.x=0;
     s.y=0;
 
