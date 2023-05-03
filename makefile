@@ -31,6 +31,8 @@ $(BUILD_DIR)/USER_OBJS.elf \
 C_SRCS += \
 	main.c \
 	ggl_extlib.c \
+	port.c \
+	2048DLX.c \
 
 
 OBJS = $(addprefix $(BUILD_DIR)/,$(notdir $(C_SRCS:.c=.o)))
