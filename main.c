@@ -48,19 +48,23 @@ int main()
     // FS_FILE* wf;
     // int e;
     // e = FSOpen("2048DL.sav", FSMODE_READ, &rf);
-    // printf("%d\n",e);    
-    // e = FSRead((char*)&b, 4, rf);
-    // printf("%d\n",e);
-    // printf("%d\n",b);
-    // e = FSClose(rf);
-    // printf("%d\n",e);
+    // printf("%d\n",e); 
+    // if(e==FS_OK)
+    // {
+    //     e = FSRead((char*)&b, 4, rf);
+    //     printf("%d\n",e);
+    //     printf("%d\n",b);
+    //     e = FSClose(rf);
+    //     printf("%d\n",e);
+    // }
+    
 
-    // e = FSOpen("2048DL.sav", FSMODE_MODIFY, &wf);
+    // e = FSOpen("2048DL.sav", FSMODE_MODIFY, &rf);
     // printf("%d\n",e);
     // scanf("%d", &a);
-    // e = FSWrite((char*)&a, 4, wf);
+    // e = FSWrite((char*)&a, 4, rf);
     // printf("%d\n",e);
-    // e= FSClose(wf);
+    // e= FSClose(rf);
     // printf("%d\n",e);
 
 
@@ -69,7 +73,7 @@ int main()
 
 
     
-    while(!keyb_isKeyPressed(KB_ON));
+    // while(!keyb_isKeyPressed(KB_ON));
     return 0;
 }
 

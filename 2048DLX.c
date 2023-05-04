@@ -36,43 +36,44 @@
 
 #define ABS(x) ((x > 0) ? x : -x)
 
-#define FILEPATH "\\\\fls0\\2048dlx.sav"
+const uint8_t z[126]={
+	0x00,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00,
+	0x01,0x00,0x00,0x00,
 
-// void Read(int *Record, int *Score, int *TempsPartie, uint8_t Grille[4][4], uint8_t *MedaillesObtenues, uint8_t *Statistiques)
-// { // Truc qui sers pour la lecture de fichiers
-// 	int i;
-// 	int handle;
-// 	handle = memory_openfile(FILEPATH, _OPENMODE_READ);
-// 	memory_readfile(handle, (void *)Record, 4, -1);
-// 	memory_readfile(handle, (void *)Score, 4, -1);
-// 	memory_readfile(handle, (void *)TempsPartie, 4, -1);
-// 	for (i = 0; i < 4; i++)
-// 		memory_readfile(handle, (void *)(Grille + i), 4, -1);
-// 	memory_readfile(handle, (void *)MedaillesObtenues, 30, -1);
-// 	memory_readfile(handle, (void *)Statistiques, 68, -1);
-// 	memory_closefile(handle);
-// }
-
-// void Save(int Record, int Score, int TempsPartie, uint8_t **Grille, uint8_t *MedaillesObtenues, uint8_t *Statistiques)
-// { // Truc qui sers pour la sauvegarde de fichiers
-// 	int i;
-// 	int handle;
-// 	memory_deletefile(FILEPATH);
-// 	memory_createfile(FILEPATH, 126);
-// 	handle = memory_openfile(FILEPATH, _OPENMODE_WRITE);
-// 	memory_writefile(handle, (void *)(&Record), 4);
-// 	memory_writefile(handle, (void *)(&Score), 4);
-// 	memory_writefile(handle, (void *)(&TempsPartie), 4);
-// 	memory_writefile(handle, (void *)Grille, 16);
-// 	memory_writefile(handle, (void *)MedaillesObtenues, 30);
-// 	memory_writefile(handle, (void *)Statistiques, 68);
-// 	memory_closefile(handle);
-// }
+	0x00,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00,
+	0x02,0x00,0x00,0x00,
+	
+	0x00,0x00,0x00,0x00,0x01,
+	0x00,0x00,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00,0x00,
+	
+	0x00,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00,
+	0x01,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00,
+	0x00,0x00,0x00,0x00};
 extern gglsurface rs;
 void app_2048_main() // Fonction du code du jeu entier
 {
-	int Score = 0;
-	int Record = 0;
+	
 	int AffTxt;
 	int ChoixMode;
 	int Direction;
@@ -109,7 +110,7 @@ void app_2048_main() // Fonction du code du jeu entier
 	int Secondes;
 	int Minutes;
 	int Heures;
-	int TempsPartie;
+
 	int TempsSession;
 	int TempsReference;
 	int TempsActuel;
@@ -122,13 +123,18 @@ void app_2048_main() // Fonction du code du jeu entier
 	// TL_Point point2 = {-1, -1};
 	// TL_Point point3 = {-1, -1};
 
-	uint8_t Grille[4][4] = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
-	uint8_t Boleens1[] = {0, 0, 0, 0};
+	static int Score = 0;
+	static int Record = 0;
+	static int TempsPartie=0;
+	static uint8_t Grille[4][4] = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
+	static unsigned int Statistiques[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+	static uint8_t MedaillesObtenues[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+	static uint8_t Boleens1[] = {0, 0, 0, 0};
 	uint8_t Boleens2[] = {0, 0, 0, 0};
-	unsigned int Statistiques[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-	uint8_t MedaillesObtenues[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
+	
 
 	const char *TextesSucces[] = {"Jouer + de 30 min", "Jouer + de 1h 30min", "Jouer + de 4h 30min", "Faire un 1024", "Faire un 2048", "Faire un 4096", "Atteinde les 7000pts", "Atteinde les 42000pts", "Atteinde les 77000pts", "Mourir avant 600pts", "Mourir avant 300pts", "Mourir avant 150pts", "Enchainer 5 fusions", "Enchainer 8 fusions", "Enchainer 11 fusions", "3 fusions dans l'ordre", "6 fusions dans l'ordre", "9 fusions dans l'ordre", "3 fusions desordonnees", "4 fusions desordonnees", "5 fusions desordonnees", "2 fusions en meme temps", "4 fusions en meme temps", "6 fusions en meme temps", "Rectangle 3*4", "Triangle rectangle 4*4", "Carre 2*2", "Spawn de 2 '4' d'affile", "Gagner a 6min 42sec pile", "Obtenir tous les succes"};
 
@@ -138,19 +144,27 @@ void app_2048_main() // Fonction du code du jeu entier
 
 	
 	srand(time_getTicks());
-
-	//Txt_Init(FONT_MINISD | FONT_ARCADIUM);
-
+ 
 	while (1)
 	{
 
-		// if (!memory_exists(FILEPATH))
-		// {
-		// 	memory_createfile(FILEPATH, 126);
-		// 	Save(Record, Score, TempsPartie, Grille, MedaillesObtenues, Statistiques);
-		// }
-
-		// Read(&Record, &Score, &TempsPartie, Grille, MedaillesObtenues, Statistiques); // Extrait les informations du fichier
+		if (!memory_exists("2048DL.sav"))
+		{
+			FS_FILE* f;
+			// printf("123");
+			// while(!keyb_isKeyPressed(KB_ON));
+			int e=FSOpen("2048DL.sav", FSMODE_MODIFY, &f);
+			// printf("%d\n",e);
+			// while(!keyb_isKeyPressed(KB_ON));
+			e = FSWrite((char*)z, 126, f);
+			// printf("%d\n",e);
+			e = FSClose(f);
+			// printf("%d\n",e);
+			// while(!keyb_isKeyPressed(KB_ON));
+		}
+		// while(!keyb_isKeyPressed(KB_D));
+		Read(&Record, &Score, &TempsPartie, Grille, MedaillesObtenues, Statistiques); // Extrait les informations du fichier
+		// FSRestart();
 
 		ML_clear_vram();
 
@@ -257,7 +271,7 @@ void app_2048_main() // Fonction du code du jeu entier
 				if (Score > Record)
 				{																			   // Nouveau record
 					Record = Score;															   // Le record prend la valeur du score
-					// Save(Record, Score, TempsPartie, Grille, MedaillesObtenues, Statistiques); // Stocke les donn�es dans un fichier
+					Save(Record, Score, TempsPartie, Grille, MedaillesObtenues, Statistiques); // Stocke les donn�es dans un fichier
 				}
 				Score = 0; // R�initialisation du score � z�ro
 			}
@@ -519,7 +533,7 @@ void app_2048_main() // Fonction du code du jeu entier
 							Statistiques[1] += 40;
 						if (Statistiques[1] % 10000 / 100 > 59)
 							Statistiques[1] += 4000;
-						// Save(Record, Score, TempsPartie, Grille, MedaillesObtenues, Statistiques); // Sauvegarde de la partie
+						Save(Record, Score, TempsPartie, Grille, MedaillesObtenues, Statistiques); // Sauvegarde de la partie
 						break;																	   // Retour au menu
 					}
 
@@ -920,7 +934,7 @@ void app_2048_main() // Fonction du code du jeu entier
 				TempsSession = Secondes + Minutes * 100 + Heures * 10000;
 				Statistiques[1] += TempsSession - TempsPartie;
 				TempsPartie = TempsSession;
-				// Save(Record, Score, TempsPartie, Grille, MedaillesObtenues, Statistiques); // Stocke les donn�es dans le fichier de sauvegarde de partie
+				Save(Record, Score, TempsPartie, Grille, MedaillesObtenues, Statistiques); // Stocke les donn�es dans le fichier de sauvegarde de partie
 				ML_rectangle(64, 43, 126, 61, 0, 0, 0);									   // Effa�age de la 3�me zone d'�criture
 				ML_bmp_or(ImPerdu, 65, 44, 63, 7);										   // Dessin de "Perdu"
 				ML_bmp_or(ImExe, 87, 53, 17, 7);										   // Dessin de "EXE"

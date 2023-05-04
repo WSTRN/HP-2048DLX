@@ -3,6 +3,7 @@
 #include <hpgcc3.h>
 #include "ggl.h"
 #include "ggl_extlib.h"
+#include "fsystem.h"
 
 
 
@@ -27,3 +28,4 @@ void Txt_Text(const char *s, int x, int y, int f, int m);
 
 void Read(int *Record, int *Score, int *TempsPartie, uint8_t Grille[4][4], uint8_t *MedaillesObtenues, uint8_t *Statistiques);
 void Save(int Record, int Score, int TempsPartie, uint8_t **Grille, uint8_t *MedaillesObtenues, uint8_t *Statistiques);
+int memory_exists(char* t);

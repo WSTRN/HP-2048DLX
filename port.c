@@ -201,12 +201,76 @@ void Txt_Text(const char *s, int x, int y, int f, int m)
   }
 }
 
-void Read(int *Record, int *Score, int *TempsPartie, uint8_t Grille[4][4], uint8_t *MedaillesObtenues, uint8_t *Statistiques)
+inline void Read(int *Record, int *Score, int *TempsPartie, uint8_t Grille[4][4], uint8_t *MedaillesObtenues, uint8_t *Statistiques)
 {
-    ;
+    FS_FILE* f;
+    int i;
+    int e = FSOpen("2048DL.sav", FSMODE_READ, &f);
+        // printf("%d\n",e);
+
+    if(e==FS_OK)
+    {
+        FSRead((char*)Record, 4, f);
+        FSRead((char*)Score, 4, f);
+        FSRead((char*)TempsPartie, 4, f);
+        for(i=0; i<4; i++)
+            FSRead((char*)(Grille+i), 4, f);
+        FSRead((char*)MedaillesObtenues, 30, f);
+        FSRead((char*)Statistiques, 68, f);
+        FSClose(f);
+    }
+    
 }
 
-void Save(int Record, int Score, int TempsPartie, uint8_t **Grille, uint8_t *MedaillesObtenues, uint8_t *Statistiques)
+inline void Save(int Record, int Score, int TempsPartie, uint8_t **Grille, uint8_t *MedaillesObtenues, uint8_t *Statistiques)
 {
-    ;
+    FS_FILE* f;
+    // printf("123");
+    // while(!keyb_isKeyPressed(KB_ON));
+    int e=FSOpen("2048DL.sav", FSMODE_MODIFY, &f);
+    // printf("%d\n",e);
+    // while(!keyb_isKeyPressed(KB_ON));
+    FSWrite((char*)&Record, 4, f);
+    FSWrite((char*)&Score, 4, f);
+    FSWrite((char*)&TempsPartie, 4, f);
+    FSWrite((char*)Grille, 16, f);
+    FSWrite((char*)MedaillesObtenues, 30, f);
+    FSWrite((char*)Statistiques, 68, f);
+    FSClose(f);
+}
+
+int memory_exists(char* t)
+{
+    FS_FILE *dir;
+    FS_FILE entry;
+    int f, files, totalsize;
+
+    f = FSOpenDir(".", &dir);
+
+    if (f != FS_OK)
+    {
+        printf("OpenDir error: %s\n", FSGetErrorMsg(f));
+        return;
+    }
+
+    // printf("Dir:: %s\n", FSGetFileName(dir, FSNAME_HASVOL | FSNAME_VOLHP | FSNAME_HASPATH | FSNAME_ABSPATH | FSNAME_ENDSLASH));
+
+    while (FSGetNextEntry(&entry, dir) == FS_OK)
+    {
+        // printf("%s | %d b\n", entry.Name, entry.FileSize);
+        if(!strcmp(t,entry.Name))
+        {
+            FSReleaseEntry(&entry);
+            f = FSClose(dir);
+            // printf("%d\n",f);
+			// while(!keyb_isKeyPressed(KB_ON));
+
+            return 1;
+        }
+        FSReleaseEntry(&entry);
+    }
+    f = FSClose(dir);
+            //     printf("%d\n",f);
+			// while(!keyb_isKeyPressed(KB_ON));
+    return 0;
 }

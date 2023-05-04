@@ -73,9 +73,9 @@ $(BUILD_DIR)/USER_OBJS.elf: $(PARTIAL_LINK_EXE) $(USER_OBJS)
 $(BUILD_DIR)/%.o: %.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: C Compiler'
-	arm-none-eabi-gcc -std=c11 -mlittle-endian -mtune=arm920t -mcpu=arm920t -fomit-frame-pointer -msoft-float -mthumb-interwork -I/hpgcc3/include $(C_INC) -Os -gdwarf-2 -Wall -c -o "$@" "$<" && \
+	arm-none-eabi-gcc -std=c11 -mlittle-endian -mtune=arm920t -mcpu=arm920t -fomit-frame-pointer -msoft-float -mthumb-interwork -I/hpgcc3/include $(C_INC) -gdwarf-2 -Wall -c -o "$@" "$<" && \
 	echo -n '$(@:%.o=%.d)' $(dir $@) > '$(@:%.o=%.d)' && \
-	arm-none-eabi-gcc -std=c11 -MM -MG -P -w -mlittle-endian -mtune=arm920t -mcpu=arm920t -fomit-frame-pointer -msoft-float -mthumb-interwork -I/hpgcc3/include $(C_INC) -Os -gdwarf-2 -Wall -c   "$<" >> '$(@:%.o=%.d)'
+	arm-none-eabi-gcc -std=c11 -MM -MG -P -w -mlittle-endian -mtune=arm920t -mcpu=arm920t -fomit-frame-pointer -msoft-float -mthumb-interwork -I/hpgcc3/include $(C_INC) -gdwarf-2 -Wall -c   "$<" >> '$(@:%.o=%.d)'
 	@echo 'Finished building: $<'
 	@echo ' '
 
