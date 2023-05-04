@@ -4,8 +4,10 @@
 #include "ggl.h"
 #include "ggl_extlib.h"
 
+
+
 int time_getTicks();
-int RTC_GetTicks();
+int RTC_getTicks();
 void Sleep(int ms);
 
 void ML_port();
@@ -20,4 +22,8 @@ void ML_bmp_and(const unsigned char *bmp, int x, int y, int width, int height);
 void ML_bmp_16_or(const unsigned char *bmp, int x, int y);
 void ML_bmp_16_and(const unsigned char *bmp, int x, int y);
 
+void Txt_Point(int x, int y, int v, int m);
+void Txt_Text(const char *s, int x, int y, int f, int m);
 
+void Read(int *Record, int *Score, int *TempsPartie, uint8_t Grille[4][4], uint8_t *MedaillesObtenues, uint8_t *Statistiques);
+void Save(int Record, int Score, int TempsPartie, uint8_t **Grille, uint8_t *MedaillesObtenues, uint8_t *Statistiques);

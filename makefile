@@ -41,6 +41,8 @@ C_DEPS = $(addprefix $(BUILD_DIR)/,$(notdir $(C_SRCS:.c=.d)))
 
 C_INC = \
 	-Iinclude \
+	-Iinclude/hpgcc3 \
+	
 
 
 # standard "all" target

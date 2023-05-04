@@ -34,9 +34,9 @@
 // 	return (*SysCall)(0, 0, 0, 0, 0x3B); // on d�clare la fonction voulue selon son num�ro (ici 0x3B)
 // }
 
-// #define ABS(x) ((x > 0) ? x : -x)
+#define ABS(x) ((x > 0) ? x : -x)
 
-// #define FILEPATH "\\\\fls0\\2048dlx.sav"
+#define FILEPATH "\\\\fls0\\2048dlx.sav"
 
 // void Read(int *Record, int *Score, int *TempsPartie, uint8_t Grille[4][4], uint8_t *MedaillesObtenues, uint8_t *Statistiques)
 // { // Truc qui sers pour la lecture de fichiers
@@ -71,17 +71,6 @@
 extern gglsurface rs;
 void app_2048_main() // Fonction du code du jeu entier
 {
-	ggl_rect(&rs, 0, 0, 130, 79, ggl_mkcolor(0));
-    ggle_bmp(&rs, 0, 0, fill, 127, 2);
-    ggle_bmp(&rs, 0, 2, fill, 127, 2);
-    ggle_bmp(&rs, 0, 4, fill, 127, 2);
-    ggle_bmp(&rs, 0, 6, fill, 127, 2);
-    ggl_rect(&rs, 0, 73, 20, 79, ggl_mkcolor(15));
-    ggl_rect(&rs, 22, 73, 42, 79, ggl_mkcolor(15));
-    ggl_rect(&rs, 44, 73, 64, 79, ggl_mkcolor(15));
-    ggl_rect(&rs, 66, 73, 86, 79, ggl_mkcolor(15));
-    ggl_rect(&rs, 88, 73, 108, 79, ggl_mkcolor(15));
-    ggl_rect(&rs, 110, 73, 130, 79, ggl_mkcolor(15));
 	int Score = 0;
 	int Record = 0;
 	int AffTxt;
@@ -144,14 +133,13 @@ void app_2048_main() // Fonction du code du jeu entier
 	const char *TextesSucces[] = {"Jouer + de 30 min", "Jouer + de 1h 30min", "Jouer + de 4h 30min", "Faire un 1024", "Faire un 2048", "Faire un 4096", "Atteinde les 7000pts", "Atteinde les 42000pts", "Atteinde les 77000pts", "Mourir avant 600pts", "Mourir avant 300pts", "Mourir avant 150pts", "Enchainer 5 fusions", "Enchainer 8 fusions", "Enchainer 11 fusions", "3 fusions dans l'ordre", "6 fusions dans l'ordre", "9 fusions dans l'ordre", "3 fusions desordonnees", "4 fusions desordonnees", "5 fusions desordonnees", "2 fusions en meme temps", "4 fusions en meme temps", "6 fusions en meme temps", "Rectangle 3*4", "Triangle rectangle 4*4", "Carre 2*2", "Spawn de 2 '4' d'affile", "Gagner a 6min 42sec pile", "Obtenir tous les succes"};
 
 	
-	const uint8_t BandeauStatistiques[] = {0x0, 0x80, 0x0, 0x0, 0x0, 0x20, 0x0, 0x0, 0x0, 0x20, 0x0, 0x0, 0x0, 0x0, 0x8, 0x0, 0x18, 0x0, 0x0, 0x0, 0x0, 0x27, 0xbe, 0x73, 0xe7, 0xa0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xc0, 0x18, 0x86, 0xae, 0xa4, 0xee, 0x28, 0xa2, 0x8a, 0x28, 0xa3, 0x33, 0x9b, 0xb1, 0x3b, 0x89, 0xe0, 0x18, 0x8, 0xa4, 0xaa, 0xa4, 0x2b, 0x36, 0xab, 0x6b, 0x22, 0xaa, 0x22, 0x2a, 0xa9, 0x3, 0xf0, 0x18, 0x84, 0xa4, 0xae, 0xa4, 0x28, 0x94, 0x89, 0x48, 0xa3, 0x33, 0x23, 0x2b, 0xa9, 0x8, 0xc0, 0x7e, 0x2, 0xa4, 0xaa, 0xa4, 0x26, 0x94, 0xa9, 0x46, 0xa2, 0x2a, 0x22, 0x2a, 0xa9, 0x0, 0xc0, 0x3c, 0x8c, 0x4e, 0x4a, 0xa4, 0x28, 0x94, 0xa9, 0x48, 0xa2, 0x2b, 0x9b, 0xb2, 0xa9, 0x8, 0xc0, 0x18, 0x0, 0x0, 0x0, 0x0, 0x2f, 0x1c, 0xd9, 0xcf, 0x20, 0x0, 0x0, 0x0, 0x0, 0x0, 0xc0, 0x0, 0x80, 0x0, 0x0, 0x0, 0x20, 0x0, 0x0, 0x0, 0x20, 0x0, 0x0, 0x0, 0x0, 0x8, 0x0, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xf8};
 	const char *TexteStatistiques[] = {"Parties ------------", "Temps de jeu total - 00:00:00", "Best time victoire - 00:00:00", "Succes sur 30 ------", "Nombre de 2 --------", "Nombre de 4 --------", "Nombre de 8 --------", "Nombre de 16 -------", "Nombre de 32 -------", "Nombre de 64 -------", "Nombre de 128 ------", "Nombre de 256 ------", "Nombre de 512 ------", "Nombre de 1024 -----", "Nombre de 2048 -----", "Nombre de 4096 -----", "Nombre de 8192 -----"};
 	uint8_t *NombreStatistiques[10];
 
 	
 	srand(time_getTicks());
 
-	// Txt_Init(FONT_MINISD | FONT_ARCADIUM);
+	//Txt_Init(FONT_MINISD | FONT_ARCADIUM);
 
 	while (1)
 	{
@@ -194,11 +182,11 @@ void app_2048_main() // Fonction du code du jeu entier
 		{
 			for (Z = 4; Z < 55; Z += 10)
 				ML_bmp_or(TexteMenu[((Z - 4) / 10) * 2], 13, Z, 39, 5); // Dessin du texte du menu
-			ML_rectangle(13, 4 + X * 10, 51, 8 + X * 10, 0, 0, 0);		// Effa�age du texte selectionn�
+			ML_rectangle(13, 4 + X * 10, 61, 10 + X * 10, 0, 0, 0);		// Effa�age du texte selectionn�
 			ML_bmp_or(TexteMenu[X * 2 + 1], 4, 3 + X * 10, 57, 7);		// Dessin du texte selectionn�
 			Sleep(2);													// Truc anti-bug d'affichage...
 			ML_display_vram();											// Affichage du menu
-			while (keyb_isKeyPressed(KB_UP) || keyb_isKeyPressed(KB_DN) || keyb_isKeyPressed(KB_ENT))
+			while (keyb_isKeyPressed(KB_UP) || keyb_isKeyPressed(KB_DN) || keyb_isKeyPressed(KB_ENT)|| keyb_isKeyPressed(KB_F))
 				; // Attend que les touche haut/bas/EXE soient relach�es
 			X2 = X;
 			while (X2 == X)
@@ -207,7 +195,7 @@ void app_2048_main() // Fonction du code du jeu entier
 					X--;
 				if (keyb_isKeyPressed(KB_DN))
 					X++;
-				if (keyb_isKeyPressed(KB_ENT) || keyb_isKeyPressed(KB_ON))
+				if (keyb_isKeyPressed(KB_ENT) || keyb_isKeyPressed(KB_ON)|| keyb_isKeyPressed(KB_F))
 					break; // EXE ou EXIT
 			}
 			if (X < 0)
@@ -215,11 +203,11 @@ void app_2048_main() // Fonction du code du jeu entier
 			if (X > 5)
 				X = 0;
 			ML_rectangle(1, 1, 63, 61, 0, 0, 0); // Effa�age du texte
-			if (keyb_isKeyPressed(KB_ENT) || keyb_isKeyPressed(KB_ON))
+			if (keyb_isKeyPressed(KB_ENT) || keyb_isKeyPressed(KB_ON)|| keyb_isKeyPressed(KB_F))
 				break; // EXE ou EXIT pour valider/quitter
 		}
 
-		while (keyb_isKeyPressed(KB_ENT))
+		while (keyb_isKeyPressed(KB_ENT)|| keyb_isKeyPressed(KB_F))
 			; // Attend que EXE soit relach�
 		if (keyb_isKeyPressed(KB_ON))
 			X = 5;	   // EXIT pour quitter
@@ -229,9 +217,9 @@ void app_2048_main() // Fonction du code du jeu entier
 		{ // Fonction du jeu
 
 			// Choix du succ� � pouvoir r�aliser cette session de partie
-			// Txt_Text("Quel succe", 3, 3, TXT_ARCADIUM, TXT_OR);
-			// Txt_Text("veux - tu", 7, 10, TXT_ARCADIUM, TXT_OR);
-			// Txt_Text("realiser ?", 3, 17, TXT_ARCADIUM, TXT_OR);
+			Txt_Text("Quel succe", 3, 3, TXT_ARCADIUM, TXT_OR);
+			Txt_Text("veux - tu", 7, 10, TXT_ARCADIUM, TXT_OR);
+			Txt_Text("realiser ?", 3, 17, TXT_ARCADIUM, TXT_OR);
 			X = 0;
 			while (1)
 			{
@@ -239,7 +227,7 @@ void app_2048_main() // Fonction du code du jeu entier
 					ML_bmp_or(ImTexteSucces[Z + 4], 2, 27 + Z * 9, 61, 7); // Dessin des succ�s � selectionner
 				ML_rectangle(1, 26 + X * 9, 63, 34 + X * 9, 0, 0, 2);	   // Dessin du succ� selectionn�
 				ML_display_vram();										   // Affichage du menu de selection du succ�
-				while (keyb_isKeyPressed(KB_UP) || keyb_isKeyPressed(KB_DN) || keyb_isKeyPressed(KB_ENT))
+				while (keyb_isKeyPressed(KB_UP) || keyb_isKeyPressed(KB_DN) || keyb_isKeyPressed(KB_ENT)|| keyb_isKeyPressed(KB_F))
 					; // Attend que les touche haut/bas/EXE soient relach�es
 				X2 = X;
 				while (X2 == X)
@@ -248,7 +236,7 @@ void app_2048_main() // Fonction du code du jeu entier
 						X--;
 					if (keyb_isKeyPressed(KB_DN))
 						X++;
-					if (keyb_isKeyPressed(KB_ENT))
+					if (keyb_isKeyPressed(KB_ENT)|| keyb_isKeyPressed(KB_F))
 						break;
 				}
 				if (X < 0)
@@ -256,11 +244,11 @@ void app_2048_main() // Fonction du code du jeu entier
 				if (X > 3)
 					X = 0;
 				ML_rectangle(1, 26, 63, 61, 0, 0, 0); // Effa�age du texte des succ�s
-				if (keyb_isKeyPressed(KB_ENT))
+				if (keyb_isKeyPressed(KB_ENT)|| keyb_isKeyPressed(KB_F))
 					break; // EXE pour valider
 			}
 			ChoixSucceOrganisation = X;
-			while (keyb_isKeyPressed(KB_ENT))
+			while (keyb_isKeyPressed(KB_ENT)|| keyb_isKeyPressed(KB_F))
 				; // Attend que EXE soit relach�
 
 			if (ChoixMode == 0)
@@ -338,7 +326,7 @@ void app_2048_main() // Fonction du code du jeu entier
 							Grille[Y][X] = 1;
 						else
 							Grille[Y][X] = 2;
-						ML_bmp_16_and(P2[0], X * 15 + 1, Y * 15 + 1); // Dessin des chiffres d'apparition
+						ML_bmp_16_or(P2[0], X * 15 + 1, Y * 15 + 1); // Dessin des chiffres d'apparition
 					}
 
 					ML_display_vram(); // Affichage de l'�cran de jeu
@@ -370,10 +358,10 @@ void app_2048_main() // Fonction du code du jeu entier
 				TestSuite = 0;
 				NbrDesordonne = 0;
 				TestArtistique = 0;
-				// TempsReference = RTC_getTicks();
+				TempsReference = RTC_getTicks();
 				while (Secondes != TempsPartie % 100)
 				{
-					// TempsActuel = RTC_getTicks();
+					TempsActuel = RTC_getTicks();
 					Secondes = (TempsActuel - TempsReference);
 				}
 				Minutes = (TempsPartie % 10000) / 100;
@@ -398,10 +386,10 @@ void app_2048_main() // Fonction du code du jeu entier
 					while (keyb_isKeyPressed(KB_RT) || keyb_isKeyPressed(KB_LF) || keyb_isKeyPressed(KB_UP) || keyb_isKeyPressed(KB_DN))
 					{ // Attend le relachement des touches directionnelles
 						// Incr�mentation du score
-						// TempsActuel = RTC_getTicks();
+						TempsActuel = RTC_getTicks();
 						if ((TempsActuel - TempsReference) / 128)
 						{
-							// TempsReference = RTC_getTicks();
+							TempsReference = RTC_getTicks();
 							Secondes++; // Secondes
 							if (Secondes >= 60)
 							{
@@ -443,7 +431,7 @@ void app_2048_main() // Fonction du code du jeu entier
 								Direction = 8;
 							if (keyb_isKeyPressed(KB_DN))
 								Direction = 5;
-							if (keyb_isKeyPressed(KB_ON))
+							if (keyb_isKeyPressed(KB_E))
 								Direction = 10; // Touche [MENU] pour retourner au menu
 							if (keyb_isKeyPressed(KB_C))
 							{ // Touche [OPTN] pour passer l'animation des chiffres on/off
@@ -455,10 +443,10 @@ void app_2048_main() // Fonction du code du jeu entier
 									;
 							}
 							// Incr�mentation du score
-							// TempsActuel = RTC_getTicks();
+							TempsActuel = RTC_getTicks();
 							if ((TempsActuel - TempsReference) / 128)
 							{
-								// TempsReference = RTC_getTicks();
+								TempsReference = RTC_getTicks();
 								Secondes++; // Secondes
 							}
 							if (Secondes >= 60)
@@ -661,9 +649,9 @@ void app_2048_main() // Fonction du code du jeu entier
 
 							if (Gagne == 1)
 							{
-								while (!keyb_isKeyPressed(KB_ENT))
+								while (!keyb_isKeyPressed(KB_ENT)|| keyb_isKeyPressed(KB_F))
 									; // Attend l'appuis de [EXE] pour continuer � jouer
-								while (keyb_isKeyPressed(KB_ENT))
+								while (keyb_isKeyPressed(KB_ENT)|| keyb_isKeyPressed(KB_F))
 									;									// Attend que [EXE] soit relach�
 								Gagne = 2;								// Change la valeur pour que le joueur ne gagne pas plusieurs fois
 								ML_rectangle(64, 43, 126, 61, 0, 0, 0); // Effa�age de la 3�me zone d'�criture
@@ -673,9 +661,9 @@ void app_2048_main() // Fonction du code du jeu entier
 									ML_bmp_or(TexteMenu[1], 67, 44, 57, 7);						 // Dessin de "Nouveau"
 									ML_bmp_or(ImTime, 83, 53, 25, 7);							 // Dessin de "TIME"
 									ML_display_vram();
-									while (!keyb_isKeyPressed(KB_ENT))
+									while (!keyb_isKeyPressed(KB_ENT)|| keyb_isKeyPressed(KB_F))
 										; // Attend l'appuis de [EXE] pour continuer � jouer
-									while (keyb_isKeyPressed(KB_ENT))
+									while (keyb_isKeyPressed(KB_ENT)|| keyb_isKeyPressed(KB_F))
 										;									// Attend que [EXE] soit relach�
 									ML_rectangle(64, 43, 126, 61, 0, 0, 0); // Effa�age de la 3�me zone d'�criture
 								}
@@ -850,7 +838,7 @@ void app_2048_main() // Fonction du code du jeu entier
 										AffTxt = 0;
 										Defilement = 0;
 										Ralentissement = 0;
-										while (!keyb_isKeyPressed(KB_ENT))
+										while (!keyb_isKeyPressed(KB_ENT)|| keyb_isKeyPressed(KB_F))
 										{											// Attend l'appuis de "EXE"
 											ML_rectangle(64, 43, 126, 61, 0, 0, 0); // Effa�age de la 3�me zone d'�criture
 											ML_rectangle(64, 52, 126, 60, 1, 1, 0); // Cadre du texte du succ�
@@ -863,10 +851,10 @@ void app_2048_main() // Fonction du code du jeu entier
 											{
 												strncpy(buffer, TextesSucces[Z] + Defilement, 15);
 												buffer[16] = 0;
-												// Txt_Text(buffer, 66, 54, TXT_MINISD, TXT_OR);
+												Txt_Text(buffer, 66, 54, TXT_MINISD, TXT_OR);
 											}
 											else
-												// Txt_Text(TextesSucces[Z], 66, 54, TXT_MINISD, TXT_OR);
+												Txt_Text(TextesSucces[Z], 66, 54, TXT_MINISD, TXT_OR);
 
 											AffTxt++;
 											if (AffTxt == 1500)
@@ -885,7 +873,7 @@ void app_2048_main() // Fonction du code du jeu entier
 
 											ML_display_vram(); // Affichage du message de succ�
 										}
-										while (keyb_isKeyPressed(KB_ENT))
+										while (keyb_isKeyPressed(KB_ENT)|| keyb_isKeyPressed(KB_F))
 											;											   // Attend le relachement de "EXE"
 										ML_rectangle(64, 43, 126, 61, 0, 0, 0);			   // Effa�age du succ�
 										ML_bmp_or(ImTime, 83, 44, 25, 7);				   // Dessin de Time
@@ -938,7 +926,7 @@ void app_2048_main() // Fonction du code du jeu entier
 				ML_bmp_or(ImExe, 87, 53, 17, 7);										   // Dessin de "EXE"
 				ML_display_vram();														   // Affichage de l'�cran de d�faite
 
-				while (!keyb_isKeyPressed(KB_ENT))
+				while (!keyb_isKeyPressed(KB_ENT)|| keyb_isKeyPressed(KB_F))
 					; // Attend l'appuis de [EXE]
 				break;
 
@@ -955,24 +943,24 @@ void app_2048_main() // Fonction du code du jeu entier
 			{
 				// Dessin de l'interface des succ�s
 				ML_rectangle(0, 0, 126, 62, 1, 1, 0);							 // Effa�age de l'�cran tout en dessinant les bordure de profondeur
-				// Txt_Text("<F1", 2, 13, TXT_MINISD, TXT_OR);						 // F1
-				// Txt_Text("F6>", 114, 13, TXT_MINISD, TXT_OR);					 // F6
+				Txt_Text("<F1", 2, 13, TXT_MINISD, TXT_OR);						 // F1
+				Txt_Text("F2>", 114, 13, TXT_MINISD, TXT_OR);					 // F6
 				ML_horizontal_line(20, 1, 125, 1);								 // Ligne de s�paration des medailles et du bandeau 2
 				ML_vertical_line(42, 20, 62, 3);								 // 1�re ligne de s�paration entre les medailles
 				ML_vertical_line(84, 20, 62, 3);								 // 2�me ligne de s�paration entre les medailles
-				// ML_bmp_or(BandeauSucces, 1, 1, 125, 10);						 // Bandeau de succ�s
+				ML_bmp_or(BandeauSucces, 1, 1, 125, 10);						 // Bandeau de succ�s
 				ML_rectangle(2 + X * 6, 1, 70 + X * 6, 10, 0, 0, 0);			 // Effa�age des succ�s cach�s par la selection
-				// ML_bmp_or(SelectSucce, 2 + X * 6, 1, 69, 10);					 // Succ� selectionn�
+				ML_bmp_or(SelectSucce, 2 + X * 6, 1, 69, 10);					 // Succ� selectionn�
 				ML_bmp_or(ImTexteSucces[X], 6 + X * 6, 2, 61, 7);				 // Nom du succ�
 				ML_rectangle(14, 12, 112, 18, 0, 0, 1);							 // Rectangle noir, fond de texte d'obtention du succ� s�lectionn�
-				// Txt_Text(TextesSucces[Z2 + X * 3], 16, 13, TXT_MINISD, TXT_XOR); // Texte d'obtention du succ� s�lectionn�
+				Txt_Text(TextesSucces[Z2 + X * 3], 16, 13, TXT_MINISD, TXT_XOR); // Texte d'obtention du succ� s�lectionn�
 				for (Z = 0; Z < 3; Z++)
-					// ML_bmp_or(ImMedailles[(X * 3 + Z + 1) * MedaillesObtenues[X * 3 + Z]], 2 + Z * 42, 22, 39, 39); // Les 3 m�dailles
+					ML_bmp_or(ImMedailles[(X * 3 + Z + 1) * MedaillesObtenues[X * 3 + Z]], 2 + Z * 42, 22, 39, 39); // Les 3 m�dailles
 				ML_rectangle(1 + Z2 * 42, 21, 41 + Z2 * 42, 61, 0, 0, 2);											// M�daille s�lectionn�
 
 				ML_display_vram(); // Affichage de l'�cran des succ�s
 
-				while (keyb_isKeyPressed(KB_RT) || keyb_isKeyPressed(KB_LF) || keyb_isKeyPressed(KB_A) || keyb_isKeyPressed(KB_F))
+				while (keyb_isKeyPressed(KB_RT) || keyb_isKeyPressed(KB_LF) || keyb_isKeyPressed(KB_A) || keyb_isKeyPressed(KB_B))
 					; // Attend que droite/gauche /F1/F6 soient relach�
 				X2 = X;
 				Z = Z2;
@@ -982,11 +970,11 @@ void app_2048_main() // Fonction du code du jeu entier
 						X++;
 					if (keyb_isKeyPressed(KB_LF))
 						X--;
-					if (keyb_isKeyPressed(KB_F))
+					if (keyb_isKeyPressed(KB_B))
 						Z2++;
 					if (keyb_isKeyPressed(KB_A))
 						Z2--;
-					if (keyb_isKeyPressed(KB_ON))
+					if (keyb_isKeyPressed(KB_E))
 						break; //[MENU] pour retourner au menu
 				}
 				if (X < 0)
@@ -997,7 +985,7 @@ void app_2048_main() // Fonction du code du jeu entier
 					Z2 = 2;
 				if (Z2 > 2)
 					Z2 = 0;
-				if (keyb_isKeyPressed(KB_ON))
+				if (keyb_isKeyPressed(KB_E))
 					break; //[MENU] pour retourner au menu
 			}
 		}
@@ -1012,35 +1000,35 @@ void app_2048_main() // Fonction du code du jeu entier
 			{
 				ML_rectangle(1, 11, 125, 61, 0, 0, 0); // Effa�age du texte des statistique
 				for (Z = 0; Z < 7; Z++)
-					// Txt_Text(TexteStatistiques[X + Z], 3, 13 + Z * 7, TXT_MINISD, TXT_OR); // Dessin du texte des statistiques
+					Txt_Text(TexteStatistiques[X + Z], 3, 13 + Z * 7, TXT_MINISD, TXT_OR); // Dessin du texte des statistiques
 
 				for (Z = 0; Z < 7; Z++)
 				{
 					if (Z + X < 1 || Z + X > 2)
 					{
 						sprintf(NombreStatistiques, "%d", Statistiques[X + Z]);
-						// Txt_Text(NombreStatistiques, 87, 13 + Z * 7, TXT_MINISD, TXT_OR); // Dessin des nombres correspondant au texte des statistiques
+						Txt_Text(NombreStatistiques, 87, 13 + Z * 7, TXT_MINISD, TXT_OR); // Dessin des nombres correspondant au texte des statistiques
 					}
 					else
 					{
 						AffTxt = Statistiques[X + Z] % 10;
 						sprintf(NombreStatistiques, "%d", AffTxt);
-						// Txt_Text(NombreStatistiques, 115, 13 + Z * 7, TXT_MINISD, TXT_ON);
+						Txt_Text(NombreStatistiques, 115, 13 + Z * 7, TXT_MINISD, TXT_ON);
 						AffTxt = Statistiques[X + Z] % 100 / 10;
 						sprintf(NombreStatistiques, "%d", AffTxt);
-						// Txt_Text(NombreStatistiques, 111, 13 + Z * 7, TXT_MINISD, TXT_ON);
+						Txt_Text(NombreStatistiques, 111, 13 + Z * 7, TXT_MINISD, TXT_ON);
 						AffTxt = Statistiques[X + Z] % 1000 / 100;
 						sprintf(NombreStatistiques, "%d", AffTxt);
-						// Txt_Text(NombreStatistiques, 103, 13 + Z * 7, TXT_MINISD, TXT_ON);
+						Txt_Text(NombreStatistiques, 103, 13 + Z * 7, TXT_MINISD, TXT_ON);
 						AffTxt = Statistiques[X + Z] % 10000 / 1000;
 						sprintf(NombreStatistiques, "%d", AffTxt);
-						// Txt_Text(NombreStatistiques, 99, 13 + Z * 7, TXT_MINISD, TXT_ON);
+						Txt_Text(NombreStatistiques, 99, 13 + Z * 7, TXT_MINISD, TXT_ON);
 						AffTxt = Statistiques[X + Z] % 100000 / 10000;
 						sprintf(NombreStatistiques, "%d", AffTxt);
-						// Txt_Text(NombreStatistiques, 91, 13 + Z * 7, TXT_MINISD, TXT_ON);
+						Txt_Text(NombreStatistiques, 91, 13 + Z * 7, TXT_MINISD, TXT_ON);
 						AffTxt = Statistiques[X + Z] / 100000;
 						sprintf(NombreStatistiques, "%d", AffTxt);
-						// Txt_Text(NombreStatistiques, 87, 13 + Z * 7, TXT_MINISD, TXT_ON);
+						Txt_Text(NombreStatistiques, 87, 13 + Z * 7, TXT_MINISD, TXT_ON);
 					}
 				}
 				ML_display_vram(); // Affichage du texte
@@ -1058,7 +1046,7 @@ void app_2048_main() // Fonction du code du jeu entier
 						X++;
 					if (keyb_isKeyPressed(KB_UP))
 						X--;
-					if (keyb_isKeyPressed(KB_ON))
+					if (keyb_isKeyPressed(KB_E))
 						break; //[MENU] pour retourner au menu
 				}
 				if (X > X2)
@@ -1069,7 +1057,7 @@ void app_2048_main() // Fonction du code du jeu entier
 					X = 10;
 				if (X > 10)
 					X = 0;
-				if (keyb_isKeyPressed(KB_ON))
+				if (keyb_isKeyPressed(KB_E))
 					break; //[MENU] pour retourner au menu
 			}
 		}
@@ -1078,13 +1066,13 @@ void app_2048_main() // Fonction du code du jeu entier
 		if (ChoixMode == 4)
 		{
 			Z = 0;
-			while (!keyb_isKeyPressed(KB_ENT))
+			while (!keyb_isKeyPressed(KB_ENT)|| keyb_isKeyPressed(KB_F))
 			{
 				Z++;
 				if (Z == 1)
 				{
 					ML_clear_vram();					 // Effa�age de l'�cran
-					// ML_bmp_or(ImCredits, 0, 0, 128, 64); // Dessin de l'image des cr�dits
+					ML_bmp_or(ImCredits, 0, 0, 128, 64); // Dessin de l'image des cr�dits
 					ML_display_vram();					 // Affichage de l'image des cr�dits
 				}
 				if (Z == 20000)
@@ -1101,7 +1089,8 @@ void app_2048_main() // Fonction du code du jeu entier
 			break; // Retour au menu de la calculatrice
 
 	} // Fin du programme
-	return 1;
+	
+	return 0;
 }
 
 
