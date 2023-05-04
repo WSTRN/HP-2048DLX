@@ -16,7 +16,7 @@ ifneq ($(strip $(C_DEPS)),)
 endif
 endif
 
-PROJECT_NAME := 2048DL
+PROJECT_NAME := 2048DLX
 BUILD_DIR := build
 # Add inputs and outputs from these tool invocations to the build variables
 PARTIAL_LINK_EXE += \
